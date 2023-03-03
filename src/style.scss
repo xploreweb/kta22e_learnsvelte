@@ -1,0 +1,6 @@
+$primary: coral;
+@import "../node_modules/bulma/bulma.sass";
+$bgcolor: coral;
+html {
+  background-color: lighten($bgcolor, 10);
+}
