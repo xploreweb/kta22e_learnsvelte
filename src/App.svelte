@@ -1,25 +1,49 @@
 <script>
+    import ItemList from "./components/ItemList.svelte";
+
     let counter = 0;
-    let message = 'Hello Svelte';
-    let items = ['piim', 'sai', 'viin', 'õlu'];
+    let message = '';
+    let items = [
+        {name:'piim', done: false},
+        {name:'sai', done: true},
+        {name:'viin', done: false},
+        {name:'õlu', done: true},
+    ];
+
+    // pikem ja vanem versioon listide välja toomiseks:
+    // $: doneItems = items.filter(function (item)
+    // {
+    //     return item.done;
+    // })
+
+    // lühem ja kaasaegsem viis:
+    // $: doneItems = items.filter((item) => {
+    //     return item.done;
+    // })
+    
+    // kui on üks parameeter  saab sulud eemaldada
+    //     $: doneItems = items.filter(item => {
+    //     return item.done;
+    // })
+
+    //lihtne versioon ühe parameetri jaoks
+    $: doneItems = items.filter(item => item.done);
+
+    $: toDoItems = items.filter(item => !item.done);
 
     function add(){
-        items.push(message);
+        items.push({name: message, done: false});
         items = items;
         message = '';
     }
 </script>
 
-<button class="button is-primary" on:click={() => counter++}>Value is {counter}</button>
 <div class="content">
     <input type="text" class="input" bind:value={message}>
     <button class="button is-primary" on:click={add}>Add</button>
-    <h1>{message}</h1>
-    <ul>
-        {#each items as item}
-            <li>{item}</li>
-        {/each}
-    </ul>
+    <ItemList bind:items={items} title="All Items"></ItemList>
+    <ItemList bind:items={doneItems} title="Done Items"></ItemList>
+    <ItemList bind:items={toDoItems} title="To Do Items"></ItemList>
 </div>
 
 
