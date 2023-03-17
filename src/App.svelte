@@ -1,5 +1,9 @@
 <script>
+    import { bind } from "svelte/internal";
     import ItemList from "./components/ItemList.svelte";
+    import Modal from "./components/Modal.svelte";
+
+    let modalActive = false;
 
     let counter = 0;
     let message = '';
@@ -37,6 +41,10 @@
         message = '';
     }
 </script>
+
+<button class="button" on:click={()=>{modalActive=true;}}>Click Me!</button>
+<Modal bind:active={modalActive} on:close={()=>{modalActive=false;}}></Modal>
+
 
 <div class="content">
     <input type="text" class="input" bind:value={message}>
